@@ -1,0 +1,9 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /webapp
+
+spring:
+  application:
+    name: front-service
+

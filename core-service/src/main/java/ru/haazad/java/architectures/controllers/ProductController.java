@@ -12,7 +12,7 @@ import ru.haazad.java.architectures.utils.Converter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api/v1/products")
@@ -23,7 +23,6 @@ public class ProductController {
 
     @GetMapping
     public List<ProductDto> getAllProducts() {
-        log.debug("Products " + productService.getAllProducts().stream().map(converter::productToProductDto).collect(Collectors.toList()));
         return productService.getAllProducts().stream().map(converter::productToProductDto).collect(Collectors.toList());
     }
 

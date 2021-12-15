@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,4 +28,7 @@ public class Order {
 
     @Column(name = "price")
     private BigDecimal totalPrice;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> items;
 }

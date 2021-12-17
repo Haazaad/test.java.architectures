@@ -27,4 +27,5 @@ public class OrderItemDto {
         quantity += delta;
         totalPrice = productPrice.multiply(new BigDecimal(quantity));
     }
+
 }

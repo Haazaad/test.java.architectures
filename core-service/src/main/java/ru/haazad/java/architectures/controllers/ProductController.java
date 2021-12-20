@@ -3,8 +3,8 @@ package ru.haazad.java.architectures.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import ru.haazad.java.architectures.adapters.RabbitmqAdapter;
 import ru.haazad.java.architectures.dtos.ProductDto;
 import ru.haazad.java.architectures.services.ProductService;
 import ru.haazad.java.architectures.utils.Converter;
@@ -20,6 +20,7 @@ public class ProductController {
 
     private final ProductService productService;
     private final Converter converter;
+    private final RabbitmqAdapter rabbitmqAdapter;
 
     @GetMapping
     public List<ProductDto> getAllProducts() {
@@ -28,7 +29,9 @@ public class ProductController {
 
     @GetMapping("/{productId}")
     public ProductDto getProduct(@PathVariable Long productId) {
-        return converter.productToProductDto(productService.getProductById(productId));
+        ProductDto productDto = converter.productToProductDto(productService.getProductById(productId));
+        rabbitmqAdapter.sendMessage(productDto.toString());
+        return productDto;
     }
 
     @PostMapping

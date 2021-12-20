@@ -1,5 +1,6 @@
 package ru.haazad.java.architectures.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +29,9 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public ProductDto getProduct(@PathVariable Long productId) {
+    public ProductDto getProduct(@PathVariable Long productId) throws JsonProcessingException {
         ProductDto productDto = converter.productToProductDto(productService.getProductById(productId));
-        rabbitmqAdapter.sendMessage(productDto.toString());
+        rabbitmqAdapter.sendMessage(productDto);
         return productDto;
     }
 

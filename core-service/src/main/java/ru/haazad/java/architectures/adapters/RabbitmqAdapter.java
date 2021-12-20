@@ -1,5 +1,7 @@
 package ru.haazad.java.architectures.adapters;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Binding;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class RabbitmqAdapter {
     private static final String QUEUE = "testQueue";
+    private final ObjectMapper mapper;
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
@@ -41,8 +44,8 @@ public class RabbitmqAdapter {
         log.debug("Message read from queue: " + in);
     }
 
-    public void sendMessage(String message) {
-        log.debug("Send message: " + message);
-        rabbitTemplate.convertAndSend(QUEUE, message);
+    public void sendMessage(Object message) throws JsonProcessingException {
+        log.debug("Send message: " + mapper.writeValueAsString(message));
+        rabbitTemplate.convertAndSend(QUEUE, mapper.writeValueAsString(message));
     }
 }

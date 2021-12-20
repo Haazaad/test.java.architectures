@@ -31,10 +31,10 @@ public class ProductService {
     }
 
     private Product setProduct(ProductDto productDto) {
-        Product product = new Product();
-        product.setId(product.getId());
-        product.setTitle(productDto.getTitle());
-        product.setPrice(productDto.getPrice());
-        return product;
+        return Product.builder()
+                .id(productDto.getId())
+                .title(productDto.getTitle())
+                .price(productDto.getPrice())
+                .build();
     }
 }

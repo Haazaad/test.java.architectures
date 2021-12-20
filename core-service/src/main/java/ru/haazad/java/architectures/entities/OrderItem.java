@@ -31,4 +31,37 @@ public class OrderItem {
 
     @Column(name = "total_price")
     private BigDecimal totalPrice;
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        private final OrderItem item = new OrderItem();
+
+        public Builder product(Product product) {
+            item.product = product;
+            return this;
+        }
+
+        public Builder quantity(int quantity) {
+            item.quantity = quantity;
+            return this;
+        }
+
+        public Builder productPrice(BigDecimal productPrice) {
+            item.productPrice = productPrice;
+            return this;
+        }
+
+        public Builder totalPrice(BigDecimal totalPrice) {
+            item.totalPrice = totalPrice;
+            return this;
+        }
+
+        public OrderItem build() {
+            return item;
+        }
+    }
 }

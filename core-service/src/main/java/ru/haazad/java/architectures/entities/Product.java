@@ -32,4 +32,33 @@ public class Product {
     @Column(name = "update_time")
     private LocalDateTime updateDate;
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private final Product product = new Product();
+
+        public Builder() {}
+
+        public Builder id(Long id) {
+            product.id = id;
+            return this;
+        }
+
+        public Builder title(String title) {
+            product.title = title;
+            return this;
+        }
+
+        public Builder price(BigDecimal price) {
+            product.price = price;
+            return this;
+        }
+
+        public Product build() {
+            return product;
+        }
+    }
+
 }

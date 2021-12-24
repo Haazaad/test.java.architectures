@@ -19,9 +19,8 @@ public class OrderItem {
     @JoinColumn(name = "order_order_id")
     private Order order;
 
-    @ManyToOne
-    @JoinColumn(name = "product_product_id")
-    private Product product;
+    @Column(name = "product_product_id")
+    private Long productId;
 
     @Column(name = "quantity")
     private int quantity;
@@ -40,8 +39,8 @@ public class OrderItem {
 
         private final OrderItem item = new OrderItem();
 
-        public Builder product(Product product) {
-            item.product = product;
+        public Builder product(Long productId) {
+            item.productId = productId;
             return this;
         }
 

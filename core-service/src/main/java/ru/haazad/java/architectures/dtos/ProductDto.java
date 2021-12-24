@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,6 +24,6 @@ public class ProductDto {
     private BigDecimal price;
 
     @Nullable
-    private LocalDateTime updateDate;
+    private Date updateDate;
 
 }

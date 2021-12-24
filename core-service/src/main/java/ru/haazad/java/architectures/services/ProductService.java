@@ -19,15 +19,23 @@ public class ProductService {
     }
 
     public Product getProductById(Long productId) {
-        return productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Product not found"));
+        return productRepository.findById(productId);
     }
 
     public void saveProduct(ProductDto productDto) {
-        productRepository.save(setProduct(productDto));
+        if (productRepository.haveProduct(productDto.getId())) {
+            productRepository.update(setProduct(productDto));
+            return;
+        }
+        productRepository.create(setProduct(productDto));
     }
 
     public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);
+    }
+
+    public boolean haveProduct(Long id) {
+        return productRepository.haveProduct(id);
     }
 
     private Product setProduct(ProductDto productDto) {

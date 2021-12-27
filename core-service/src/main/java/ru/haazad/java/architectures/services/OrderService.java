@@ -35,14 +35,14 @@ public class OrderService {
         User user = userService.getUserByUsername(username);
         Order order = new Order();
         List<OrderItem> items = new ArrayList<>();
-        for (OrderItemDto itemDto: orderDto.getItems()) {
+        for (OrderItemDto itemDto : orderDto.getItems()) {
             Product product = productService.getProductById(itemDto.getProductId());
             items.add(OrderItem.builder()
-            .product(product)
-            .quantity(itemDto.getQuantity())
-            .productPrice(itemDto.getProductPrice())
-            .totalPrice(itemDto.getTotalPrice())
-            .build());
+                    .product(product.getId())
+                    .quantity(itemDto.getQuantity())
+                    .productPrice(itemDto.getProductPrice())
+                    .totalPrice(itemDto.getTotalPrice())
+                    .build());
         }
         order.setItems(items);
         order.setUser(user);

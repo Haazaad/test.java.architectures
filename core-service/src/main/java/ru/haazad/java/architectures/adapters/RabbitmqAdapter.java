@@ -9,6 +9,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -24,8 +26,12 @@ public class RabbitmqAdapter {
         log.debug("Message read from queue: " + in);
     }
 
-    public void sendMessage(Object message) throws JsonProcessingException {
-        log.debug("Send message: " + mapper.writeValueAsString(message));
-        rabbitTemplate.convertAndSend(QUEUE, mapper.writeValueAsString(message));
+    public void sendMessage(Object message) {
+        try {
+            log.debug("Send message: " + mapper.writeValueAsString(message));
+            rabbitTemplate.convertAndSend(QUEUE, mapper.writeValueAsString(message));
+        } catch (JsonProcessingException e) {
+            log.debug(e.getMessage() + " " + Arrays.toString(e.getStackTrace()));
+        }
     }
 }

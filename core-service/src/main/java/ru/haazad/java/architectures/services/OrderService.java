@@ -38,7 +38,7 @@ public class OrderService {
         for (OrderItemDto itemDto : orderDto.getItems()) {
             Product product = productService.getProductById(itemDto.getProductId());
             items.add(OrderItem.builder()
-                    .product(product)
+                    .product(product.getId())
                     .quantity(itemDto.getQuantity())
                     .productPrice(itemDto.getProductPrice())
                     .totalPrice(itemDto.getTotalPrice())

@@ -3,6 +3,10 @@ server:
   servlet:
     context-path: /core-service
 
+rabbitmq:
+  queues:
+    test: testQueue
+
 spring:
   application:
     name: core-service

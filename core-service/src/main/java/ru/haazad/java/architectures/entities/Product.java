@@ -1,36 +1,22 @@
 package ru.haazad.java.architectures.entities;
 
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
-@Entity
 @Data
-@Table(name = "products")
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "title")
     private String title;
 
-    @Column(name = "price")
     private BigDecimal price;
 
-    @CreationTimestamp
-    @Column(name = "create_time")
-    private LocalDateTime createDate;
+    private Timestamp createDate;
 
-    @UpdateTimestamp
-    @Column(name = "update_time")
-    private LocalDateTime updateDate;
+    private Timestamp updateDate;
 
     public static Builder builder() {
         return new Builder();
@@ -53,6 +39,16 @@ public class Product {
 
         public Builder price(BigDecimal price) {
             product.price = price;
+            return this;
+        }
+
+        public Builder createDate(Timestamp dateTime) {
+            product.createDate = dateTime;
+            return this;
+        }
+
+        public Builder updateDate(Timestamp dateTime) {
+            product.updateDate = dateTime;
             return this;
         }
 
